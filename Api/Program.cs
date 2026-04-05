@@ -10,6 +10,12 @@ builder.Services.AddScoped<AIService>();
 
 var app = builder.Build();
 
-app.MapGet("/", () => "AI Enterprise Dev Assistant Running...");
+app.MapPost("/analyze", async (AIService aiService, string input) =>
+{
+    var result = await aiService.AnalyzeInputAsync(input);
+    return Results.Ok(result);
+});
+
 
 app.Run();
+
